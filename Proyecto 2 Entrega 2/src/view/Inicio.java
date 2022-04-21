@@ -23,6 +23,11 @@ import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.awt.event.ActionEvent;
+import java.awt.GridLayout;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.JList;
+import javax.swing.AbstractListModel;
 
 public class Inicio {
 
@@ -83,13 +88,11 @@ public class Inicio {
 		
 		JLabel lblNewLabel_5 = new JLabel(darFechaddMM());
 		panel_2.add(lblNewLabel_5, "cell 3 0");
-		lblNewLabel.setBackground(new Color(51, 102, 153));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 57));
-		lblNewLabel.setOpaque(true);
-		frame.getContentPane().add(lblNewLabel, BorderLayout.NORTH);
 		
-		crearPanelInicioSesion(principal);
+		
+		crearPanelNuevoProyecto(principal);
+		
+		
 			
 	}
 	
@@ -237,73 +240,37 @@ public class Inicio {
 		panelCrearProyecto.setForeground(new Color(255, 255, 255));
 		panelCrearProyecto.setBackground(Color.DARK_GRAY);
 		principal.add(panelCrearProyecto, BorderLayout.CENTER);
-		panelCrearProyecto.setLayout(new MigLayout("", "[][][grow]", "[grow]"));
+		panelCrearProyecto.setLayout(null);
 		
 		JPanel panel = new JPanel();
+		panel.setBounds(7, 7, 190, 622);
 		panel.setForeground(new Color(255, 255, 255));
 		panel.setBackground(Color.DARK_GRAY);
-		panelCrearProyecto.add(panel, "cell 0 0,alignx left,growy");
-		panel.setLayout(new MigLayout("", "[grow]", "[grow,center][grow,center][grow,center][grow,center]"));
+		panelCrearProyecto.add(panel);
+		panel.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		JLabel lblNewLabel_4 = new JLabel("Inicia t\u00FA sesi\u00F3n");
-		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		lblNewLabel_4.setForeground(new Color(255, 255, 255));
-		lblNewLabel_4.setBackground(Color.DARK_GRAY);
-		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
-		panel.add(lblNewLabel_4, "cell 0 0,growx");
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		panel.add(scrollPane);
 		
-		JPanel panel_5 = new JPanel();
-		panel_5.setForeground(new Color(255, 255, 255));
-		panel_5.setBackground(Color.DARK_GRAY);
-		panel.add(panel_5, "cell 0 1,grow");
-		panel_5.setLayout(null);
-		
-		JLabel lblNewLabel_4_1 = new JLabel("Ingrese su nombre de usuario:");
-		lblNewLabel_4_1.setForeground(new Color(255, 255, 255));
-		lblNewLabel_4_1.setBackground(Color.DARK_GRAY);
-		lblNewLabel_4_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_4_1.setBounds(0, 39, 451, 13);
-		panel_5.add(lblNewLabel_4_1);
-		
-		JTextField textField_1 = new JTextField();
-		textField_1.setForeground(new Color(255, 255, 255));
-		textField_1.setBackground(Color.DARK_GRAY);
-		textField_1.setBounds(155, 77, 142, 20);
-		panel_5.add(textField_1);
-		textField_1.setColumns(10);
-		
-		JPanel panel_6 = new JPanel();
-		panel_6.setForeground(new Color(255, 255, 255));
-		panel_6.setBackground(Color.DARK_GRAY);
-		panel.add(panel_6, "cell 0 2,grow");
-		panel_6.setLayout(null);
-		
-		JButton btnNewButton = new JButton("Continuar");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				panelCrearProyecto.setVisible(false);
+		JList list = new JList();
+		list.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		list.setModel(new AbstractListModel() {
+			String[] values = new String[] {"dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd"};
+			public int getSize() {
+				return values.length;
+			}
+			public Object getElementAt(int index) {
+				return values[index];
 			}
 		});
-		btnNewButton.setBackground(new Color(102, 153, 255));
-		btnNewButton.setBounds(160, 52, 125, 21);
-		panel_6.add(btnNewButton);
-		
-		JPanel panel_7 = new JPanel();
-		panel_7.setForeground(new Color(255, 255, 255));
-		panel_7.setBackground(Color.DARK_GRAY);
-		panel.add(panel_7, "cell 0 3,grow");
-		
-		JLabel lblNewLabel_3 = new JLabel("\u00D3");
-		lblNewLabel_3.setAlignmentX(Component.CENTER_ALIGNMENT);
-		lblNewLabel_3.setOpaque(true);
-		lblNewLabel_3.setForeground(new Color(255, 255, 255));
-		lblNewLabel_3.setBackground(Color.DARK_GRAY);
-		panelCrearProyecto.add(lblNewLabel_3, "flowx,cell 1 0");
+		scrollPane.setViewportView(list);
 		
 		JPanel panel_4 = new JPanel();
+		panel_4.setBounds(211, 7, 821, 622);
 		panel_4.setForeground(new Color(255, 255, 255));
 		panel_4.setBackground(Color.DARK_GRAY);
-		panelCrearProyecto.add(panel_4, "cell 2 0,grow");
+		panelCrearProyecto.add(panel_4);
 		panel_4.setLayout(new MigLayout("", "[grow]", "[grow,center][grow,center][grow,center][grow,center]"));
 		
 		JLabel lblNewLabel_4_2 = new JLabel("Crea un usuario nuevo");
@@ -371,5 +338,4 @@ public class Inicio {
 	    String strDate = date.format(myFormatObj);
 		return strDate;
 	}
-	
 }
