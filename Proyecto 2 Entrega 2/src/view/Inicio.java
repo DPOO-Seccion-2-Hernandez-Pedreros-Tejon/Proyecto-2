@@ -2,6 +2,7 @@ package view;
 
 import java.awt.EventQueue;
 
+
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
@@ -15,6 +16,11 @@ import java.awt.Color;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JTextField;
 import javax.swing.border.MatteBorder;
+
+import Controller.ManejadorProyectos;
+import Controller.Participante;
+import Controller.PersistenciaException;
+
 import javax.swing.border.LineBorder;
 import java.awt.FlowLayout;
 import java.awt.Component;
@@ -29,14 +35,23 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.JList;
 import javax.swing.AbstractListModel;
 
+import view.Controller;
+ 
 public class Inicio {
-
+	
+	static ManejadorProyectos manejadorProyectos;
+	static Participante usuarioActual;
 	private JFrame frame;
 
 	/**
 	 * Launch the application.
+	 * @throws PersistenciaException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws PersistenciaException 
+	{
+		Controller.cargarDatosM();
+		manejadorProyectos = Controller.manejadorProyectos;
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -90,7 +105,7 @@ public class Inicio {
 		panel_2.add(lblNewLabel_5, "cell 3 0");
 		
 		
-		crearPanelNuevoProyecto(principal);
+		crearPanelInicioSesion(principal);
 		
 		
 			
@@ -112,7 +127,7 @@ public class Inicio {
 		panelInicioSesion.add(panel, "cell 0 0,grow");
 		panel.setLayout(new MigLayout("", "[grow]", "[grow,center][grow,center][grow,center][grow,center]"));
 		
-		JLabel lblNewLabel_4 = new JLabel("Inicia t\u00FA sesi\u00F3n");
+		JLabel lblNewLabel_4 = new JLabel("Inicia tu sesi\u00F3n");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		lblNewLabel_4.setForeground(new Color(255, 255, 255));
 		lblNewLabel_4.setBackground(Color.DARK_GRAY);
@@ -145,23 +160,54 @@ public class Inicio {
 		panel.add(panel_6, "cell 0 2,grow");
 		panel_6.setLayout(null);
 		
-		JButton btnNewButton = new JButton("Continuar");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				panelInicioSesion.setVisible(false);
-				panel_1.remove(panelInicioSesion);
-				crearPanelNuevoProyecto(panel_1);
-			}
-		});
-		btnNewButton.setBackground(new Color(102, 153, 255));
-		btnNewButton.setBounds(160, 52, 125, 21);
-		panel_6.add(btnNewButton);
-		
 		JPanel panel_7 = new JPanel();
 		panel_7.setForeground(new Color(255, 255, 255));
 		panel_7.setBackground(Color.DARK_GRAY);
 		panel.add(panel_7, "cell 0 3,grow");
+		
+		JLabel lblNewLabel_7 = new JLabel("No existe un usuario con ese nombre");
+		lblNewLabel_7.setForeground(new Color(255, 0, 0));
+		lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_7.setBounds(109, 10, 230, 32);
+		lblNewLabel_7.setVisible(false);
+		panel_6.add(lblNewLabel_7);
+		
+		JButton btnNewButton = new JButton("Continuar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				if (!(textField_1.getText().equals("")))
+				{
+					String nombre = textField_1.getText();
+					boolean aux = false;
+					for (Participante p: manejadorProyectos.usuarios)
+					{
+						if (nombre.equals(p.getNombre()))
+						{
+							aux = true;
+							usuarioActual = p;
+						}
+					}
+					if (aux)
+					{
+						Controller consola = new Controller();
+						panelInicioSesion.setVisible(false);
+						panel_1.remove(panelInicioSesion);
+						crearPanelNuevoProyecto(panel_1);
+					}
+					else
+					{
+						lblNewLabel_7.setVisible(true);
+					}
+				}
+			}
+		});
+		btnNewButton.setBackground(new Color(102, 153, 255));
+		btnNewButton.setBounds(159, 62, 125, 21);
+		panel_6.add(btnNewButton);
+		
+		
 		
 		JLabel lblNewLabel_3 = new JLabel("\u00D3");
 		lblNewLabel_3.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -200,7 +246,7 @@ public class Inicio {
 		lblNewLabel_4_1_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_4_1_1.setBackground(Color.DARK_GRAY);
 		lblNewLabel_4_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_4_1_1.setBounds(0, 37, 480, 13);
+		lblNewLabel_4_1_1.setBounds(10, 37, 480, 13);
 		panel_5_1.add(lblNewLabel_4_1_1);
 		
 		JPanel panel_5_2 = new JPanel();
@@ -213,15 +259,23 @@ public class Inicio {
 		textField_3.setForeground(new Color(255, 255, 255));
 		textField_3.setBackground(Color.DARK_GRAY);
 		textField_3.setColumns(10);
-		textField_3.setBounds(175, 77, 142, 20);
+		textField_3.setBounds(175, 64, 142, 20);
 		panel_5_2.add(textField_3);
 		
-		JLabel lblNewLabel_4_1_2 = new JLabel("Ingrese su nombre de usuario:");
+		JLabel lblNewLabel_4_1_2 = new JLabel("Ingrese su correo:");
 		lblNewLabel_4_1_2.setForeground(new Color(255, 255, 255));
 		lblNewLabel_4_1_2.setBackground(Color.DARK_GRAY);
 		lblNewLabel_4_1_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_4_1_2.setBounds(0, 36, 480, 13);
+		lblNewLabel_4_1_2.setBounds(0, 25, 480, 13);
 		panel_5_2.add(lblNewLabel_4_1_2);
+		
+		JLabel lblNewLabel_6 = new JLabel("Ya existe un usuario con ese nombre o ese correo");
+		lblNewLabel_6.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblNewLabel_6.setForeground(new Color(255, 0, 0));
+		lblNewLabel_6.setBounds(96, 111, 307, 20);
+		lblNewLabel_6.setVisible(false);
+		panel_5_2.add(lblNewLabel_6);
 		
 		JPanel panel_8 = new JPanel();
 		panel_8.setBackground(Color.DARK_GRAY);
@@ -229,8 +283,45 @@ public class Inicio {
 		panel_8.setLayout(null);
 		
 		JButton btnNewButton_1 = new JButton("Continuar");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				if (!(textField_2.getText().equals("")) && !(textField_3.getText().equals("")))
+				{
+					String nombre = textField_2.getText();
+					String correo = textField_3.getText(); 
+					boolean aux = false;
+					for (Participante p: manejadorProyectos.usuarios)
+					{
+						if (nombre.equals(p.getNombre()) || correo.equals(p.getCorreo()))
+						{
+							aux = true;
+						}
+					}
+					if (!aux)
+					{
+						Controller consola = new Controller();
+						usuarioActual = new Participante(nombre, correo);
+						manejadorProyectos.usuarios.add(usuarioActual);
+						try {
+							manejadorProyectos.salvarDatos();
+						} catch (PersistenciaException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						panelInicioSesion.setVisible(false);
+						panel_1.remove(panelInicioSesion);
+						crearPanelNuevoProyecto(panel_1);
+					}
+					else
+					{
+						lblNewLabel_6.setVisible(true);
+					}
+				}
+			}
+		});
 		btnNewButton_1.setBackground(new Color(102, 153, 255));
-		btnNewButton_1.setBounds(184, 49, 125, 21);
+		btnNewButton_1.setBounds(182, 10, 125, 21);
 		panel_8.add(btnNewButton_1);
 	}
 

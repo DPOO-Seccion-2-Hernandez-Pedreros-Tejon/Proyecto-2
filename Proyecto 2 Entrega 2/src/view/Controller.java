@@ -13,7 +13,7 @@ import java.time.LocalDateTime; // Import the LocalDateTime class
 import java.time.format.DateTimeFormatter; // Import the DateTimeFormatter class 
 import java.time.LocalTime; // import the LocalTime class
 
-public class Consola {
+public class Controller {
 
 	static ManejadorProyectos manejadorProyectos;
 	static Participante usuarioActual;
@@ -233,7 +233,7 @@ public class Consola {
 					String estado = "C";
 					do {
 						
-						int continuar = Integer.parseInt(Consola.input(
+						int continuar = Integer.parseInt(Controller.input(
 								"¿Qué desea que haga el cronómetro?, "
 								+ "¿Desea pausarlo, que siga corriendo o finalizar la actividad?"
 								+ " \n1. Pausar \n2. Seguir corriendo \n3. Finalizar la actividad\n"));
@@ -303,7 +303,7 @@ public class Consola {
 						String estado = "C";
 						do {
 							
-							int continuar = Integer.parseInt(Consola.input(
+							int continuar = Integer.parseInt(Controller.input(
 									"¿Qué desea que haga el cronómetro?, "
 									+ "¿Desea pausarlo, que siga corriendo o finalizar la actividad?"
 									+ " \n1. Pausar \n2. Seguir corriendo \n3. Finalizar la actividad\n"));
@@ -458,7 +458,6 @@ public class Consola {
 	
 	public static void main(String[] args) throws PersistenciaException 
 	{
-		cargarDatosM();
 		System.out.println("Bienvenido al Project Manager");
 		iniciarSesion();
 	}
@@ -472,25 +471,7 @@ public class Consola {
 		if (opcion_seleccionada == 1) 
 		{
 			String nombre = input("Ingrese su nombre de usuario");
-			boolean aux = false;
-			for (Participante p: manejadorProyectos.usuarios)
-			{
-				if (nombre.equals(p.getNombre()))
-				{
-					aux = true;
-					usuarioActual = p;
-				}
-			}
-			if (aux)
-			{
-				Consola consola = new Consola();
-				consola.mostrarMenuInicio();
-			}
-			else
-			{
-				System.out.println("No existe un usuario con ese nombre, vuelva a intentarlo. \n");
-				main(null);
-			}
+			
 		}
 		else if (opcion_seleccionada == 2) 
 		{
@@ -514,7 +495,7 @@ public class Consola {
 				usuarioActual = new Participante(nombre, correo);
 				manejadorProyectos.usuarios.add(usuarioActual);
 				manejadorProyectos.salvarDatos();
-				Consola consola = new Consola();
+				Controller consola = new Controller();
 				consola.mostrarMenuInicio();
 			}
 		}
