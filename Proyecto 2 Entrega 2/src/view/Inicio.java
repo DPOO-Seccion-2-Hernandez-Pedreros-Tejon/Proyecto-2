@@ -34,6 +34,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JList;
 import javax.swing.AbstractListModel;
+import java.awt.SystemColor;
 
 import view.Controller;
  
@@ -42,6 +43,10 @@ public class Inicio {
 	static ManejadorProyectos manejadorProyectos;
 	static Participante usuarioActual;
 	private JFrame frame;
+	private JTextField textField;
+	private JTextField textField_4;
+	private JTextField textField_5;
+	private JTextField textField_6;
 
 	/**
 	 * Launch the application.
@@ -362,64 +367,128 @@ public class Inicio {
 		panel_4.setForeground(new Color(255, 255, 255));
 		panel_4.setBackground(Color.DARK_GRAY);
 		panelCrearProyecto.add(panel_4);
-		panel_4.setLayout(new MigLayout("", "[grow]", "[grow,center][grow,center][grow,center][grow,center]"));
-		
-		JLabel lblNewLabel_4_2 = new JLabel("Crea un usuario nuevo");
-		lblNewLabel_4_2.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		lblNewLabel_4_2.setForeground(new Color(255, 255, 255));
-		lblNewLabel_4_2.setBackground(Color.DARK_GRAY);
-		lblNewLabel_4_2.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_4.add(lblNewLabel_4_2, "cell 0 0,alignx center");
+		panel_4.setLayout(null);
 		
 		JPanel panel_5_1 = new JPanel();
+		panel_5_1.setBounds(16, 63, 789, 265);
 		panel_5_1.setForeground(new Color(255, 255, 255));
 		panel_5_1.setBackground(Color.DARK_GRAY);
 		panel_5_1.setLayout(null);
-		panel_4.add(panel_5_1, "cell 0 1,grow");
+		panel_4.add(panel_5_1);
 		
 		JTextField textField_2 = new JTextField();
 		textField_2.setForeground(new Color(255, 255, 255));
 		textField_2.setBackground(Color.DARK_GRAY);
 		textField_2.setColumns(10);
-		textField_2.setBounds(177, 77, 142, 20);
+		textField_2.setBounds(386, 33, 289, 25);
 		panel_5_1.add(textField_2);
 		
-		JLabel lblNewLabel_4_1_1 = new JLabel("Ingrese su nombre de usuario:");
+		JLabel lblNewLabel_4_1_1 = new JLabel("Nombre del Proyecto");
+		lblNewLabel_4_1_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_4_1_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_4_1_1.setBackground(Color.DARK_GRAY);
 		lblNewLabel_4_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_4_1_1.setBounds(0, 37, 480, 13);
+		lblNewLabel_4_1_1.setBounds(6, 25, 331, 30);
 		panel_5_1.add(lblNewLabel_4_1_1);
 		
+		JLabel lblNewLabel_4_1_1_1 = new JLabel("Descripción");
+		lblNewLabel_4_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel_4_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_4_1_1_1.setForeground(Color.WHITE);
+		lblNewLabel_4_1_1_1.setBackground(Color.DARK_GRAY);
+		lblNewLabel_4_1_1_1.setBounds(6, 115, 331, 30);
+		panel_5_1.add(lblNewLabel_4_1_1_1);
+		
+		textField = new JTextField();
+		textField.setForeground(Color.WHITE);
+		textField.setColumns(10);
+		textField.setBackground(Color.DARK_GRAY);
+		textField.setBounds(386, 65, 289, 137);
+		panel_5_1.add(textField);
+		
+		JLabel lblNewLabel_4_1_1_1_1 = new JLabel("Fecha estimada de finalización");
+		lblNewLabel_4_1_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblNewLabel_4_1_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_4_1_1_1_1.setForeground(Color.WHITE);
+		lblNewLabel_4_1_1_1_1.setBackground(Color.DARK_GRAY);
+		lblNewLabel_4_1_1_1_1.setBounds(6, 205, 331, 35);
+		panel_5_1.add(lblNewLabel_4_1_1_1_1);
+		
+		textField_4 = new JTextField();
+		textField_4.setForeground(Color.WHITE);
+		textField_4.setColumns(10);
+		textField_4.setBackground(Color.DARK_GRAY);
+		textField_4.setBounds(386, 214, 289, 25);
+		panel_5_1.add(textField_4);
+		
+		JButton btnNewButton_2 = new JButton("Listo");
+		btnNewButton_2.setIcon(null);
+		btnNewButton_2.setBounds(695, 210, 70, 30);
+		panel_5_1.add(btnNewButton_2);
+		
 		JPanel panel_5_2 = new JPanel();
+		panel_5_2.setBounds(0, 328, 821, 56);
+		panel_5_2.setToolTipText("Reporte");
 		panel_5_2.setForeground(new Color(255, 255, 255));
-		panel_5_2.setBackground(Color.DARK_GRAY);
+		panel_5_2.setBackground(new Color(102, 153, 204));
 		panel_5_2.setLayout(null);
-		panel_4.add(panel_5_2, "cell 0 2,grow");
+		panel_4.add(panel_5_2);
 		
-		JTextField textField_3 = new JTextField();
-		textField_3.setForeground(new Color(255, 255, 255));
-		textField_3.setBackground(Color.DARK_GRAY);
-		textField_3.setColumns(10);
-		textField_3.setBounds(175, 77, 142, 20);
-		panel_5_2.add(textField_3);
-		
-		JLabel lblNewLabel_4_1_2 = new JLabel("Ingrese su nombre de usuario:");
-		lblNewLabel_4_1_2.setForeground(new Color(255, 255, 255));
-		lblNewLabel_4_1_2.setBackground(Color.DARK_GRAY);
-		lblNewLabel_4_1_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_4_1_2.setBounds(0, 36, 480, 13);
-		panel_5_2.add(lblNewLabel_4_1_2);
+		JLabel lblNewLabel_7 = new JLabel("Reporte");
+		lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblNewLabel_7.setForeground(new Color(0, 0, 0));
+		lblNewLabel_7.setBounds(331, 6, 104, 33);
+		panel_5_2.add(lblNewLabel_7);
 		
 		JPanel panel_8 = new JPanel();
+		panel_8.setBounds(16, 388, 789, 218);
 		panel_8.setBackground(Color.DARK_GRAY);
-		panel_4.add(panel_8, "cell 0 3,grow");
+		panel_4.add(panel_8);
 		panel_8.setLayout(null);
 		
-		JButton btnNewButton_1 = new JButton("Continuar");
-		btnNewButton_1.setBackground(new Color(102, 153, 255));
-		btnNewButton_1.setBounds(184, 49, 125, 21);
-		panel_8.add(btnNewButton_1);
+		JButton btnNewButton_2_1 = new JButton("Listo");
+		btnNewButton_2_1.setBounds(701, 171, 70, 30);
+		panel_8.add(btnNewButton_2_1);
+		
+		JLabel lblNewLabel_4_1_1_2 = new JLabel("Nombre de usuario");
+		lblNewLabel_4_1_1_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_4_1_1_2.setForeground(Color.WHITE);
+		lblNewLabel_4_1_1_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel_4_1_1_2.setBackground(Color.DARK_GRAY);
+		lblNewLabel_4_1_1_2.setBounds(24, 28, 331, 30);
+		panel_8.add(lblNewLabel_4_1_1_2);
+		
+		textField_5 = new JTextField();
+		textField_5.setForeground(Color.WHITE);
+		textField_5.setColumns(10);
+		textField_5.setBackground(Color.DARK_GRAY);
+		textField_5.setBounds(390, 33, 289, 25);
+		panel_8.add(textField_5);
+		
+		JLabel lblNewLabel_4_1_1_1_2 = new JLabel("Reporte");
+		lblNewLabel_4_1_1_1_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_4_1_1_1_2.setForeground(Color.WHITE);
+		lblNewLabel_4_1_1_1_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel_4_1_1_1_2.setBackground(Color.DARK_GRAY);
+		lblNewLabel_4_1_1_1_2.setBounds(24, 117, 331, 30);
+		panel_8.add(lblNewLabel_4_1_1_1_2);
+		
+		textField_6 = new JTextField();
+		textField_6.setForeground(Color.WHITE);
+		textField_6.setColumns(10);
+		textField_6.setBackground(Color.DARK_GRAY);
+		textField_6.setBounds(390, 65, 289, 137);
+		panel_8.add(textField_6);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(102, 153, 255));
+		panel_1.setBounds(0, 6, 821, 55);
+		panel_4.add(panel_1);
+		
+		JLabel lblNewLabel_6 = new JLabel("Crear Proyecto");
+		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		panel_1.add(lblNewLabel_6);
 		panelCrearProyecto.setVisible(true);
 	}
 

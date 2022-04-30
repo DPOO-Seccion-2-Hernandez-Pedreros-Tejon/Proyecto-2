@@ -46,7 +46,7 @@ public class ManejadorProyectos implements Serializable{
 	}
 
 	
-	public void añadirParticipante(Proyecto proyectoActual)
+	public void anadirParticipante(Proyecto proyectoActual)
 	{
 		
 	}
@@ -88,7 +88,7 @@ public class ManejadorProyectos implements Serializable{
 		   File archivo = new File( archivoProyectos );
 		   if( archivo.exists( ) )
 		   {
-		       // El archivo existe: se debe recuperar de allí el estado del modelo del mundo
+		       // El archivo existe: se debe recuperar de allï¿½ el estado del modelo del mundo
 			   try
 		       {
 		           ObjectInputStream ois = new ObjectInputStream( new FileInputStream( archivo ) );
@@ -97,7 +97,7 @@ public class ManejadorProyectos implements Serializable{
 		       }
 		       catch( Exception e )
 		       {
-		           // Se atrapan en este bloque todos los tipos de excepción
+		           // Se atrapan en este bloque todos los tipos de excepciï¿½n
 		           registrarError( e );
 		           throw new PersistenciaException( "Error fatal: imposible restaurar el estado del programa (" + e.getMessage( ) + ")" );
 		        }
@@ -115,7 +115,7 @@ public class ManejadorProyectos implements Serializable{
 		   File archivo = new File( archivoUsuarios );
 		   if( archivo.exists( ) )
 		   {
-		       // El archivo existe: se debe recuperar de allí el estado del modelo del mundo
+		       // El archivo existe: se debe recuperar de allï¿½ el estado del modelo del mundo
 			   try
 		       {
 		           ObjectInputStream ois2 = new ObjectInputStream( new FileInputStream( archivo ) );
@@ -124,7 +124,7 @@ public class ManejadorProyectos implements Serializable{
 		       }
 		       catch( Exception e )
 		       {
-		           // Se atrapan en este bloque todos los tipos de excepción
+		           // Se atrapan en este bloque todos los tipos de excepciï¿½n
 		           registrarError( e );
 		           throw new PersistenciaException( "Error fatal: imposible restaurar el estado del programa (" + e.getMessage( ) + ")" );
 		        }
