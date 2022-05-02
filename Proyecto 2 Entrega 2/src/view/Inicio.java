@@ -652,7 +652,7 @@ public class Inicio {
 		panel_4.add(panel_5_1);
 		
 		JTextField textField_2 = new JTextField();
-		textField_2.setText(actividadActual.getTipo);
+		textField_2.setText(Controller.manejadorProyectos.actividadActual.getTipo());
 		textField_2.setForeground(new Color(255, 255, 255));
 		textField_2.setBackground(Color.DARK_GRAY);
 		textField_2.setColumns(10);
