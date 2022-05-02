@@ -128,10 +128,10 @@ public class Inicio {
 		JLabel lblNewLabel_5 = new JLabel(darFechaddMM());
 		panel_2.add(lblNewLabel_5, "cell 3 0");
 		
-		//crearPanelInicioSesion(principal);
+		crearPanelInicioSesion(principal);
 		//crearPanelNuevoProyecto(principal);
 		//crearPanelProyecto(principal);
-		crearPanelModificarActividad(principal);
+		//crearPanelModificarActividad(principal);
 		
 			
 	}
@@ -663,8 +663,8 @@ public class Inicio {
 		        		manejadorProyectos.setActividadActual(actividad);
 		        	}
 		        }
-		        panelCrearProyecto.setVisible(false);
-				principal.remove(panelCrearProyecto);
+		        panelModificarActividad.setVisible(false);
+				principal.remove(panelModificarActividad);
 		        crearPanelModificarActividad(principal);
 		    }
 		};
@@ -691,6 +691,7 @@ public class Inicio {
 		textField_2.setBackground(Color.DARK_GRAY);
 		textField_2.setColumns(10);
 		textField_2.setBounds(386, 33, 289, 25);
+		textField_2.setText(manejadorProyectos.actividadActual.getTipo());
 		panel_5_1.add(textField_2);
 		
 		JLabel lblNewLabel_4_1_1 = new JLabel("Tipo");
@@ -714,6 +715,7 @@ public class Inicio {
 		textField.setColumns(10);
 		textField.setBackground(Color.DARK_GRAY);
 		textField.setBounds(386, 65, 289, 137);
+		textField.setText(manejadorProyectos.actividadActual.getDescripcion());
 		panel_5_1.add(textField);
 		
 		JLabel lblNewLabel_4_1_1_1_1 = new JLabel("Fecha de realización");
@@ -730,6 +732,7 @@ public class Inicio {
 		txtDdmmyyyy.setColumns(10);
 		txtDdmmyyyy.setBackground(Color.DARK_GRAY);
 		txtDdmmyyyy.setBounds(386, 214, 289, 25);
+		txtDdmmyyyy.setText(manejadorProyectos.actividadActual.getFecha());
 		panel_5_1.add(txtDdmmyyyy);
 		
 		JButton btnNewButton_2 = new JButton("Listo");
@@ -739,15 +742,10 @@ public class Inicio {
 				if ((!(textField_2.getText().equals("")) && !(textField.getText().equals(""))) && !(txtDdmmyyyy.getText().equals("")))
 				{
 					manejadorProyectos.actividadActual.setDescripcion(textField.getText());
-					manejadorProyectos.actividadActual.setDescripcion(textField.getText());
-					
-					String fechaInicio = darFechaddMM();
-
-					//Proyecto proyectoActual = new Proyecto(nombre, descripcion, fechaInicio, fechaEstimada, usuarioActual);
-				
-					//manejadorProyectos.proyectosCargados.add(proyectoActual);
-				
-					//manejadorProyectos.proyectoActual = proyectoActual;
+					manejadorProyectos.actividadActual.setTipo(textField_2.getText());
+					manejadorProyectos.actividadActual.setFecha(txtDdmmyyyy.getText());
+					manejadorProyectos.actividadActual.setHoraInicio(textField_4.getText());
+					manejadorProyectos.actividadActual.setHoraFinal(textField_5.getText());
 					
 					try {
 						manejadorProyectos.salvarDatos();
@@ -756,8 +754,10 @@ public class Inicio {
 						e1.printStackTrace();
 					}
 					
-					// TODO Pantalla de proyecto
 					
+					panelModificarActividad.setVisible(false);
+					principal.remove(panelModificarActividad);
+			        crearPanelProyecto(principal);
 				}
 				
 			}
@@ -786,6 +786,7 @@ public class Inicio {
 		textField_4.setColumns(10);
 		textField_4.setBackground(Color.DARK_GRAY);
 		textField_4.setBounds(386, 274, 289, 25);
+		textField_4.setText(manejadorProyectos.actividadActual.getHoraInicio());
 		panel_5_1.add(textField_4);
 		
 		textField_5 = new JTextField();
@@ -793,6 +794,7 @@ public class Inicio {
 		textField_5.setColumns(10);
 		textField_5.setBackground(Color.DARK_GRAY);
 		textField_5.setBounds(386, 344, 289, 25);
+		textField_5.setText(manejadorProyectos.actividadActual.getHoraFinal());
 		panel_5_1.add(textField_5);
 		Border borde = BorderFactory.createLineBorder(Color.WHITE, 1);
 		
@@ -1015,7 +1017,7 @@ public class Inicio {
 							aux = true;
 							usuario = o;
 							Actividad actividadActual = new Actividad(nombre, tipo, fecha, horaInicio, descripcion, usuario);
-							
+							actividadActual.setHoraFinal(horaInicio);
 							manejadorProyectos.proyectoActual.actividades.add(actividadActual);
 							usuario.actividadesParticipante.add(actividadActual);
 						
@@ -1031,8 +1033,6 @@ public class Inicio {
 							principal.remove(panelCrearProyecto);
 					        crearPanelProyecto(principal);
 							
-							
-							// TODO Pantalla de proyecto
 						}
 					}
 					
