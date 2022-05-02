@@ -14,12 +14,17 @@ import java.util.Date;
 
 public class ManejadorProyectos implements Serializable{
 	public Participante usuarioActual;
+	public Actividad actividadActual;
 	public ArrayList<Proyecto> proyectosCargados;
 	public Proyecto proyectoActual;
 	public ArrayList<Participante> usuarios;
 	private static final String LOG_FILE = "error.log";
 	private String archivoProyectos;
 	private String archivoUsuarios;
+	
+	public Actividad getAcividadActual() {
+		return actividadActual;
+	}
 	
 	public Participante getUsuarioActual() {
 		return usuarioActual;
