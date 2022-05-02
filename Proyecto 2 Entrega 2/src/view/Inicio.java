@@ -738,9 +738,8 @@ public class Inicio {
 			public void actionPerformed(ActionEvent e) {
 				if ((!(textField_2.getText().equals("")) && !(textField.getText().equals(""))) && !(txtDdmmyyyy.getText().equals("")))
 				{
-					String nombre = textField_2.getText();
-					String descripcion = textField.getText();
-					String fechaEstimada = txtDdmmyyyy.getText();
+					manejadorProyectos.actividadActual.setDescripcion(textField.getText());
+					manejadorProyectos.actividadActual.setDescripcion(textField.getText());
 					
 					String fechaInicio = darFechaddMM();
 
