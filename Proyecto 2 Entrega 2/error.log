@@ -1,0 +1,12 @@
+---------------------------------------
+ManejadorProyectos.java :Sun May 01 23:15:46 COT 2022
+---------------------------------------
+java.io.EOFException
+	at java.base/java.io.ObjectInputStream$PeekInputStream.readFully(ObjectInputStream.java:2926)
+	at java.base/java.io.ObjectInputStream$BlockDataInputStream.readShort(ObjectInputStream.java:3421)
+	at java.base/java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:959)
+	at java.base/java.io.ObjectInputStream.<init>(ObjectInputStream.java:397)
+	at Controller.ManejadorProyectos.cargarUsuarios(ManejadorProyectos.java:111)
+	at view.Controller.cargarUsuarios(Controller.java:38)
+	at view.Controller.cargarDatosM(Controller.java:27)
+	at view.Inicio.main(Inicio.java:78)
