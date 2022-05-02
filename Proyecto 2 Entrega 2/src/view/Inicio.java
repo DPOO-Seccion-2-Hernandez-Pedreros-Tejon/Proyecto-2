@@ -17,6 +17,7 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.JTextField;
 import javax.swing.border.MatteBorder;
 
+import Controller.Actividad;
 import Controller.ManejadorProyectos;
 import Controller.Participante;
 import Controller.PersistenciaException;
@@ -28,6 +29,9 @@ import java.awt.FlowLayout;
 import java.awt.Component;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -38,6 +42,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.JList;
 import javax.swing.AbstractListModel;
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
 
 import java.awt.SystemColor;
 
@@ -122,8 +127,8 @@ public class Inicio {
 		panel_2.add(lblNewLabel_5, "cell 3 0");
 		
 		
-		crearPanelInicioSesion(principal);
-		
+		//crearPanelInicioSesion(principal);
+		crearPanelNuevoProyecto(principal);
 		
 			
 	}
@@ -357,6 +362,27 @@ public class Inicio {
 		panelCrearProyecto.add(panel);
 		panel.setLayout(new MigLayout("", "[grow,fill]", "[grow,fill][::130,grow]"));
 		
+		JPanel panel_4 = new JPanel();
+		panel_4.setBounds(211, 7, 821, 622);
+		panel_4.setForeground(new Color(255, 255, 255));
+		panel_4.setBackground(Color.DARK_GRAY);
+		panelCrearProyecto.add(panel_4);
+		panel_4.setLayout(null);
+		
+		JPanel panel_5_1 = new JPanel();
+		panel_5_1.setBounds(16, 63, 789, 265);
+		panel_5_1.setForeground(new Color(255, 255, 255));
+		panel_5_1.setBackground(Color.DARK_GRAY);
+		panel_5_1.setLayout(null);
+		panel_4.add(panel_5_1);
+		
+		JTextField textField_2 = new JTextField();
+		textField_2.setForeground(new Color(255, 255, 255));
+		textField_2.setBackground(Color.DARK_GRAY);
+		textField_2.setColumns(10);
+		textField_2.setBounds(386, 33, 289, 25);
+		panel_5_1.add(textField_2);
+		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		panel.add(scrollPane);
@@ -377,6 +403,22 @@ public class Inicio {
 				return values[index];
 			}
 		});
+		MouseListener mouseListener = new MouseAdapter() {
+		    public void mouseClicked(MouseEvent e) {
+		        String selectedItem = list.getSelectedValue().toString();
+		        for (Proyecto proyecto: manejadorProyectos.proyectosCargados)
+		        {
+		        	if (proyecto.getNombre().equals(selectedItem))
+		        	{
+		        		manejadorProyectos.setProyectoActual(proyecto);
+		        	}
+		        }
+		        panelCrearProyecto.setVisible(false);
+				principal.remove(panelCrearProyecto);
+		        crearPanelProyecto(principal);
+		    }
+		};
+		list.addMouseListener(mouseListener);
 		scrollPane.setViewportView(list);
 		
 		JPanel panel_3 = new JPanel();
@@ -398,27 +440,6 @@ public class Inicio {
 		lblNewLabel_8.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_8.setBounds(10, 32, 144, 66);
 		panel_3.add(lblNewLabel_8);
-		
-		JPanel panel_4 = new JPanel();
-		panel_4.setBounds(211, 7, 821, 622);
-		panel_4.setForeground(new Color(255, 255, 255));
-		panel_4.setBackground(Color.DARK_GRAY);
-		panelCrearProyecto.add(panel_4);
-		panel_4.setLayout(null);
-		
-		JPanel panel_5_1 = new JPanel();
-		panel_5_1.setBounds(16, 63, 789, 265);
-		panel_5_1.setForeground(new Color(255, 255, 255));
-		panel_5_1.setBackground(Color.DARK_GRAY);
-		panel_5_1.setLayout(null);
-		panel_4.add(panel_5_1);
-		
-		JTextField textField_2 = new JTextField();
-		textField_2.setForeground(new Color(255, 255, 255));
-		textField_2.setBackground(Color.DARK_GRAY);
-		textField_2.setColumns(10);
-		textField_2.setBounds(386, 33, 289, 25);
-		panel_5_1.add(textField_2);
 		
 		JLabel lblNewLabel_4_1_1 = new JLabel("Nombre del Proyecto:");
 		lblNewLabel_4_1_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -487,7 +508,7 @@ public class Inicio {
 					
 					panelCrearProyecto.setVisible(false);
 					principal.remove(panelCrearProyecto);
-					crearPanelProyecto(principal, manejadorProyectos.proyectoActual);
+					crearPanelProyecto(principal);
 					
 				}
 				
@@ -590,7 +611,7 @@ public class Inicio {
 		panelCrearProyecto.setVisible(true);
 	}
 
-	public void crearPanelProyecto(JPanel principal, Proyecto proyectoActual)
+	public void crearPanelProyecto(JPanel principal)
 	{
 		JPanel panelCrearProyecto = new JPanel();
 		panelCrearProyecto.setForeground(new Color(255, 255, 255));
@@ -611,9 +632,9 @@ public class Inicio {
 		
 		JList list = new JList();
 		ArrayList<String> nombres = new ArrayList();
-		for (Proyecto proyecto: manejadorProyectos.proyectosCargados) 
+		for (Actividad actividad: manejadorProyectos.proyectoActual.getActividades()) 
 		{
-			nombres.add(proyecto.getNombre());
+			nombres.add(actividad.getNombre());
 		}
 		list.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		list.setModel(new AbstractListModel() {
@@ -625,6 +646,22 @@ public class Inicio {
 				return values[index];
 			}
 		});
+		MouseListener mouseListener = new MouseAdapter() {
+		    public void mouseClicked(MouseEvent e) {
+		        String selectedItem = list.getSelectedValue().toString();
+		        for (Actividad actividad: manejadorProyectos.proyectoActual.getActividades())
+		        {
+		        	if (actividad.getNombre().equals(selectedItem))
+		        	{
+		        		manejadorProyectos.setActividadActual(actividad);
+		        	}
+		        }
+		        panelCrearProyecto.setVisible(false);
+				principal.remove(panelCrearProyecto);
+		        crearModificarActividad(principal);
+		    }
+		};
+		list.addMouseListener(mouseListener);
 		scrollPane.setViewportView(list);
 		
 		JPanel panel_3 = new JPanel();
@@ -632,12 +669,12 @@ public class Inicio {
 		panel.add(panel_3, "cell 0 1,grow");
 		panel_3.setLayout(null);
 		
-		JButton lblNewLabel_8 = new JButton("Cambiar usuario");
+		JButton lblNewLabel_8 = new JButton("Volver");
 		lblNewLabel_8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panelCrearProyecto.setVisible(false);
 				principal.remove(panelCrearProyecto);
-				crearPanelInicioSesion(principal);
+				crearPanelNuevoProyecto(principal);
 			}
 		});
 		lblNewLabel_8.setFont(new Font("Tahoma", Font.BOLD, 13));

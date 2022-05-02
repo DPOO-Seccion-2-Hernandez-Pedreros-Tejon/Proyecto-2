@@ -46,24 +46,9 @@ public class ManejadorProyectos implements Serializable{
 	}
 
 	
-	public void anadirParticipante(Proyecto proyectoActual)
+	public void setProyectoActual(Proyecto proyecto)
 	{
-		
-	}
-	
-	public void generarReporte()
-	{
-		
-	}
-	
-	public void addActividadProyecto()
-	{
-		
-	}
-	
-	public void addActividadParticipante()
-	{
-		
+		proyectoActual = proyecto;
 	}
 	
 	public float calcularTiempoActividad()
