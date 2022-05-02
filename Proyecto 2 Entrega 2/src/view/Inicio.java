@@ -20,7 +20,9 @@ import javax.swing.border.MatteBorder;
 import Controller.ManejadorProyectos;
 import Controller.Participante;
 import Controller.PersistenciaException;
+import Controller.Proyecto;
 
+import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import java.awt.FlowLayout;
 import java.awt.Component;
@@ -28,13 +30,20 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.GridLayout;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JList;
 import javax.swing.AbstractListModel;
+import javax.swing.BorderFactory;
+
 import java.awt.SystemColor;
+
+import java.time.LocalDateTime; // Import the LocalDateTime class
+import java.time.format.DateTimeFormatter; // Import the DateTimeFormatter class 
+import java.time.LocalTime; // import the LocalTime class
 
 import view.Controller;
  
@@ -44,9 +53,8 @@ public class Inicio {
 	static Participante usuarioActual;
 	private JFrame frame;
 	private JTextField textField;
-	private JTextField textField_4;
+	private JTextField txtDdmmyyyy;
 	private JTextField textField_5;
-	private JTextField textField_6;
 
 	/**
 	 * Launch the application.
@@ -110,7 +118,7 @@ public class Inicio {
 		panel_2.add(lblNewLabel_5, "cell 3 0");
 		
 		
-		crearPanelInicioSesion(principal);
+		crearPanelNuevoProyecto(principal);
 		
 		
 			
@@ -311,7 +319,7 @@ public class Inicio {
 						try {
 							manejadorProyectos.salvarDatos();
 						} catch (PersistenciaException e1) {
-							// TODO Auto-generated catch block
+							//Auto-generated catch block
 							e1.printStackTrace();
 						}
 						panelInicioSesion.setVisible(false);
@@ -350,9 +358,14 @@ public class Inicio {
 		panel.add(scrollPane);
 		
 		JList list = new JList();
+		ArrayList<String> nombres = new ArrayList();
+		for (Proyecto proyecto: manejadorProyectos.proyectosCargados) 
+		{
+			nombres.add(proyecto.getNombre());
+		}
 		list.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		list.setModel(new AbstractListModel() {
-			String[] values = new String[] {"dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd", "dd"};
+			String[] values = nombres.toArray(new String[nombres.size()]);
 			public int getSize() {
 				return values.length;
 			}
@@ -383,7 +396,7 @@ public class Inicio {
 		textField_2.setBounds(386, 33, 289, 25);
 		panel_5_1.add(textField_2);
 		
-		JLabel lblNewLabel_4_1_1 = new JLabel("Nombre del Proyecto");
+		JLabel lblNewLabel_4_1_1 = new JLabel("Nombre del Proyecto:");
 		lblNewLabel_4_1_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_4_1_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_4_1_1.setBackground(Color.DARK_GRAY);
@@ -391,7 +404,7 @@ public class Inicio {
 		lblNewLabel_4_1_1.setBounds(6, 25, 331, 30);
 		panel_5_1.add(lblNewLabel_4_1_1);
 		
-		JLabel lblNewLabel_4_1_1_1 = new JLabel("Descripción");
+		JLabel lblNewLabel_4_1_1_1 = new JLabel("Descripci\u00F3n:");
 		lblNewLabel_4_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_4_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_4_1_1_1.setForeground(Color.WHITE);
@@ -406,7 +419,7 @@ public class Inicio {
 		textField.setBounds(386, 65, 289, 137);
 		panel_5_1.add(textField);
 		
-		JLabel lblNewLabel_4_1_1_1_1 = new JLabel("Fecha estimada de finalización");
+		JLabel lblNewLabel_4_1_1_1_1 = new JLabel("Fecha estimada de finalizaci\u00F3n:");
 		lblNewLabel_4_1_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblNewLabel_4_1_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_4_1_1_1_1.setForeground(Color.WHITE);
@@ -414,15 +427,45 @@ public class Inicio {
 		lblNewLabel_4_1_1_1_1.setBounds(6, 205, 331, 35);
 		panel_5_1.add(lblNewLabel_4_1_1_1_1);
 		
-		textField_4 = new JTextField();
-		textField_4.setForeground(Color.WHITE);
-		textField_4.setColumns(10);
-		textField_4.setBackground(Color.DARK_GRAY);
-		textField_4.setBounds(386, 214, 289, 25);
-		panel_5_1.add(textField_4);
+		txtDdmmyyyy = new JTextField();
+		txtDdmmyyyy.setText("DD/MM/YYYY");
+		txtDdmmyyyy.setForeground(Color.WHITE);
+		txtDdmmyyyy.setColumns(10);
+		txtDdmmyyyy.setBackground(Color.DARK_GRAY);
+		txtDdmmyyyy.setBounds(386, 214, 289, 25);
+		panel_5_1.add(txtDdmmyyyy);
 		
 		JButton btnNewButton_2 = new JButton("Listo");
 		btnNewButton_2.setIcon(null);
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if ((!(textField_2.getText().equals("")) && !(textField.getText().equals(""))) && !(txtDdmmyyyy.getText().equals("")))
+				{
+					String nombre = textField_2.getText();
+					String descripcion = textField.getText();
+					String fechaEstimada = txtDdmmyyyy.getText();
+					
+					String fechaInicio = darFechaddMM();
+
+					Proyecto proyectoActual = new Proyecto(nombre, descripcion, fechaInicio, fechaEstimada, usuarioActual);
+				
+					manejadorProyectos.proyectosCargados.add(proyectoActual);
+				
+					manejadorProyectos.proyectoActual = proyectoActual;
+					
+					try {
+						manejadorProyectos.salvarDatos();
+					} catch (PersistenciaException e1) {
+						//Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+					// TODO Pantalla de proyecto
+					
+				}
+				
+			}
+			});
 		btnNewButton_2.setBounds(695, 210, 70, 30);
 		panel_5_1.add(btnNewButton_2);
 		
@@ -447,11 +490,45 @@ public class Inicio {
 		panel_4.add(panel_8);
 		panel_8.setLayout(null);
 		
+		JLabel lblNewLabel_8 = new JLabel("");
+		lblNewLabel_8.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		Border borde = BorderFactory.createLineBorder(Color.WHITE, 1);
+		lblNewLabel_8.setBorder(borde);
+		lblNewLabel_8.setForeground(new Color(255, 255, 255));
+		lblNewLabel_8.setBounds(390, 117, 377, 59);
+		panel_8.add(lblNewLabel_8);
+		
 		JButton btnNewButton_2_1 = new JButton("Listo");
-		btnNewButton_2_1.setBounds(701, 171, 70, 30);
+		btnNewButton_2_1.setBounds(697, 32, 70, 30);
+		btnNewButton_2_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (!(textField_5.getText().equals("")))
+				{
+					String nombre = textField_5.getText();
+					boolean aux = false;
+					
+					for (Participante o: manejadorProyectos.usuarios)
+					{
+						if (nombre.equals(o.getNombre()))
+						{
+							aux = true;
+							lblNewLabel_8.setText("<html>El usuario " + o.getNombre() + " ha trabajado un tiempo total de " + o.getTiempoTotal() + "<br>y ha invertido en promedio"
+									+ " por actividad un tiempo de " + o.getTiempoProm() + "</html>");
+						}
+					}
+					if (!aux)
+					{
+						lblNewLabel_8.setText("No existe un usuario con ese nombre para generar el reporte.");
+					}
+					
+					
+				}
+				
+			}
+			});
 		panel_8.add(btnNewButton_2_1);
 		
-		JLabel lblNewLabel_4_1_1_2 = new JLabel("Nombre de usuario");
+		JLabel lblNewLabel_4_1_1_2 = new JLabel("Nombre de usuario:");
 		lblNewLabel_4_1_1_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_4_1_1_2.setForeground(Color.WHITE);
 		lblNewLabel_4_1_1_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -466,7 +543,7 @@ public class Inicio {
 		textField_5.setBounds(390, 33, 289, 25);
 		panel_8.add(textField_5);
 		
-		JLabel lblNewLabel_4_1_1_1_2 = new JLabel("Reporte");
+		JLabel lblNewLabel_4_1_1_1_2 = new JLabel("Reporte:");
 		lblNewLabel_4_1_1_1_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_4_1_1_1_2.setForeground(Color.WHITE);
 		lblNewLabel_4_1_1_1_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -474,12 +551,6 @@ public class Inicio {
 		lblNewLabel_4_1_1_1_2.setBounds(24, 117, 331, 30);
 		panel_8.add(lblNewLabel_4_1_1_1_2);
 		
-		textField_6 = new JTextField();
-		textField_6.setForeground(Color.WHITE);
-		textField_6.setColumns(10);
-		textField_6.setBackground(Color.DARK_GRAY);
-		textField_6.setBounds(390, 65, 289, 137);
-		panel_8.add(textField_6);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(102, 153, 255));

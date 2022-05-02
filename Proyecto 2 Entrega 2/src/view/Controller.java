@@ -81,41 +81,13 @@ public class Controller {
 				}
 				else if (opcion_seleccionada == 2) 
 				{	
-					String nombre = input("Ingresa el nombre de tu nuevo proyecto");
 				
-					String descripcion = input("Escribe una breve descripción de tu nuevo proyecto");
-				
-					String fechaInicio = getCurrentDate();
-				
-					String fechaEstimada = input("Ingresa la fecha estimada de finalización del proyecto en formato dd/MM/yyyy");
-
-					Proyecto proyectoActual = new Proyecto(nombre, descripcion, fechaInicio, fechaEstimada, usuarioActual);
-				
-					manejadorProyectos.proyectosCargados.add(proyectoActual);
-				
-					manejadorProyectos.proyectoActual = proyectoActual;
 					
-					manejadorProyectos.salvarDatos();
-				
-					mostrarMenuProyecto(proyectoActual);
 				}
 				else if (opcion_seleccionada == 3) 
 				{
 					String usuario = input("Ingresa el nombre del usuario");
-					for (Participante o: manejadorProyectos.usuarios)
-					{
-						if (usuario.equals(o.getNombre()))
-						{
-							System.out.println();
-							System.out.println("EL usuario " 
-										+ o.getNombre()
-										+ " ha trabajado un tiempo total de "
-										+ o.getTiempoTotal()
-										+ " y ha invertido en promedio"
-										+ " por actividad un tiempo de "
-										+ o.getTiempoProm());
-						}
-					}
+					
 					
 				}
 				
