@@ -600,11 +600,11 @@ public class Inicio {
 	
 	public void crearPanelModificarActividad(JPanel principal)
 	{
-		JPanel panelCrearProyecto = new JPanel();
-		panelCrearProyecto.setForeground(new Color(255, 255, 255));
-		panelCrearProyecto.setBackground(Color.DARK_GRAY);
-		principal.add(panelCrearProyecto, BorderLayout.CENTER);
-		panelCrearProyecto.setLayout(null);
+		JPanel panelModificarActividad = new JPanel();
+		panelModificarActividad.setForeground(new Color(255, 255, 255));
+		panelModificarActividad.setBackground(Color.DARK_GRAY);
+		principal.add(panelModificarActividad, BorderLayout.CENTER);
+		panelModificarActividad.setLayout(null);
 		
 		
 		//panel.setText(actividadActual.getTipo)
@@ -612,7 +612,7 @@ public class Inicio {
 		panel.setBounds(7, 7, 190, 622);
 		panel.setForeground(new Color(255, 255, 255));
 		panel.setBackground(Color.DARK_GRAY);
-		panelCrearProyecto.add(panel);
+		panelModificarActividad.add(panel);
 		panel.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -641,7 +641,7 @@ public class Inicio {
 		panel_4.setBounds(211, 7, 821, 622);
 		panel_4.setForeground(new Color(255, 255, 255));
 		panel_4.setBackground(Color.DARK_GRAY);
-		panelCrearProyecto.add(panel_4);
+		panelModificarActividad.add(panel_4);
 		panel_4.setLayout(null);
 		
 		JPanel panel_5_1 = new JPanel();
@@ -772,7 +772,7 @@ public class Inicio {
 		JLabel lblNewLabel_6 = new JLabel("Modificar Actividad");
 		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		panel_1.add(lblNewLabel_6);
-		panelCrearProyecto.setVisible(true);
+		panelModificarActividad.setVisible(true);
 	}
 
 	public void crearPanelProyecto(JPanel principal, Proyecto proyectoActual)
