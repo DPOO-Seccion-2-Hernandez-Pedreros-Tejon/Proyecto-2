@@ -129,7 +129,7 @@ public class Inicio {
 
 		crearPanelModificarActividad(principal);
 
-		crearPanelInicioSesion(principal);
+		
 
 		
 		
@@ -606,6 +606,8 @@ public class Inicio {
 		principal.add(panelCrearProyecto, BorderLayout.CENTER);
 		panelCrearProyecto.setLayout(null);
 		
+		
+		//panel.setText(actividadActual.getTipo)
 		JPanel panel = new JPanel();
 		panel.setBounds(7, 7, 190, 622);
 		panel.setForeground(new Color(255, 255, 255));
@@ -650,6 +652,7 @@ public class Inicio {
 		panel_4.add(panel_5_1);
 		
 		JTextField textField_2 = new JTextField();
+		textField_2.setText(actividadActual.getTipo);
 		textField_2.setForeground(new Color(255, 255, 255));
 		textField_2.setBackground(Color.DARK_GRAY);
 		textField_2.setColumns(10);
