@@ -121,13 +121,7 @@ public class Controller {
 		return strDate;
 	}
 	
-	public static String getCurrentHour() 
-	{
-		LocalTime horaActual = LocalTime.now();
-		DateTimeFormatter horaAct = DateTimeFormatter.ofPattern("HH:mm:ss");
-		String fHour = horaActual.format(horaAct);
-		return fHour;
-	}
+	
 
 	public void pedirMenu()
 	{
@@ -175,7 +169,7 @@ public class Controller {
 				
 				String fechaInicio = getCurrentDate();
 				
-				String horaInicio = getCurrentHour();
+				
 				
 				Participante usuario = usuarioActual;
 				
@@ -193,7 +187,7 @@ public class Controller {
 					
 					
 					proyectoActual.actividades.add(actividad);
-					usuario.actividadesParticipante.add(actividad);
+					
 					int last = proyectoActual.actividades.size() - 1;
 					proyectoActual.actividades.get(last).finalizada = false;
 					

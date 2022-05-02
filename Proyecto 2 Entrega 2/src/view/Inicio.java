@@ -66,8 +66,6 @@ public class Inicio {
 	private JTextField textField_5;
 	private JTextField textField_6;
 	private JTextField textField_7;
-	private JTextField textField_8;
-	private JTextField textField_9;
 
 	/**
 	 * Launch the application.
@@ -130,9 +128,10 @@ public class Inicio {
 		JLabel lblNewLabel_5 = new JLabel(darFechaddMM());
 		panel_2.add(lblNewLabel_5, "cell 3 0");
 		
-		crearPanelInicioSesion(principal);
+		//crearPanelInicioSesion(principal);
 		//crearPanelNuevoProyecto(principal);
-
+		//crearPanelProyecto(principal);
+		crearPanelModificarActividad(principal);
 		
 			
 	}
@@ -213,6 +212,7 @@ public class Inicio {
 						{
 							aux = true;
 							usuarioActual = p;
+							manejadorProyectos.usuarioActual = p;
 						}
 					}
 					if (aux)
@@ -328,6 +328,7 @@ public class Inicio {
 					{
 						Controller consola = new Controller();
 						usuarioActual = new Participante(nombre, correo);
+						manejadorProyectos.usuarioActual = usuarioActual;
 						manejadorProyectos.usuarios.add(usuarioActual);
 						try {
 							manejadorProyectos.salvarDatos();
@@ -638,9 +639,9 @@ public class Inicio {
 		
 		JList list = new JList();
 		ArrayList<String> nombres = new ArrayList();
-		for (Proyecto proyecto: manejadorProyectos.proyectosCargados) 
+		for (Actividad actividad: manejadorProyectos.proyectoActual.getActividades()) 
 		{
-			nombres.add(proyecto.getNombre());
+			nombres.add(actividad.getNombre());
 		}
 		list.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		list.setModel(new AbstractListModel() {
@@ -652,6 +653,22 @@ public class Inicio {
 				return values[index];
 			}
 		});
+		MouseListener mouseListener = new MouseAdapter() {
+		    public void mouseClicked(MouseEvent e) {
+		        String selectedItem = list.getSelectedValue().toString();
+		        for (Actividad actividad: manejadorProyectos.proyectoActual.getActividades())
+		        {
+		        	if (actividad.getNombre().equals(selectedItem))
+		        	{
+		        		manejadorProyectos.setActividadActual(actividad);
+		        	}
+		        }
+		        panelCrearProyecto.setVisible(false);
+				principal.remove(panelCrearProyecto);
+		        crearPanelModificarActividad(principal);
+		    }
+		};
+		list.addMouseListener(mouseListener);
 		scrollPane.setViewportView(list);
 		
 		JPanel panel_4 = new JPanel();
@@ -888,14 +905,6 @@ public class Inicio {
 		lblNewLabel_9_1.setBounds(0, 329, 821, 23);
 		panel_4.add(lblNewLabel_9_1);
 		
-		JLabel lblNewLabel_9_1_1 = new JLabel("Modificar informaci\u00F3n del proyecto");
-		lblNewLabel_9_1_1.setOpaque(true);
-		lblNewLabel_9_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_9_1_1.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel_9_1_1.setBackground(new Color(153, 204, 255));
-		lblNewLabel_9_1_1.setBounds(0, 521, 821, 23);
-		panel_4.add(lblNewLabel_9_1_1);
-		
 		JLabel lblNewLabel_10 = new JLabel("Nombre del proyecto: " + manejadorProyectos.proyectoActual.nombre);
 		lblNewLabel_10.setForeground(new Color(255, 255, 255));
 		lblNewLabel_10.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -935,6 +944,7 @@ public class Inicio {
 		textField.setBounds(269, 361, 352, 19);
 		panel_4.add(textField);
 		textField.setColumns(10);
+		textField.setText(manejadorProyectos.usuarioActual.getNombre());
 		
 		JLabel lblNewLabel_10_4_1 = new JLabel("Nombre de la actividad:");
 		lblNewLabel_10_4_1.setForeground(Color.WHITE);
@@ -956,6 +966,7 @@ public class Inicio {
 		textField_5 = new JTextField();
 		textField_5.setColumns(10);
 		textField_5.setBounds(269, 409, 352, 19);
+		textField_5.setText(darFechaddMM());
 		panel_4.add(textField_5);
 		
 		JLabel lblNewLabel_10_4_3 = new JLabel("Tipo de la actividad:");
@@ -986,37 +997,51 @@ public class Inicio {
 		lblNewLabel_8_1.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblNewLabel_8_1.setBackground(Color.WHITE);
 		lblNewLabel_8_1.setBounds(650, 386, 144, 66);
+		lblNewLabel_8_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if ((!(textField.getText().equals("")) && !(textField_4.getText().equals(""))) && (!(textField_5.getText().equals("")) && !(textField_6.getText().equals(""))))
+				{
+					String autor = textField.getText();
+					String nombre = textField_4.getText();
+					String fecha = textField_5.getText();
+					String tipo = textField_6.getText();
+					String descripcion = textField_7.getText();
+					String horaInicio = getCurrentHour();
+					Participante usuario = null;
+					boolean aux = false;
+					for (Participante o: manejadorProyectos.usuarios)
+					{
+						if (autor.equals(o.getNombre()))
+						{
+							aux = true;
+							usuario = o;
+							Actividad actividadActual = new Actividad(nombre, tipo, fecha, horaInicio, descripcion, usuario);
+							
+							manejadorProyectos.proyectoActual.actividades.add(actividadActual);
+							usuario.actividadesParticipante.add(actividadActual);
+						
+							manejadorProyectos.actividadActual = actividadActual;
+							
+							try {
+								manejadorProyectos.salvarDatos();
+							} catch (PersistenciaException e1) {
+								//Auto-generated catch block
+								e1.printStackTrace();
+							}
+							panelCrearProyecto.setVisible(false);
+							principal.remove(panelCrearProyecto);
+					        crearPanelProyecto(principal);
+							
+							
+							// TODO Pantalla de proyecto
+						}
+					}
+					
+				}
+				
+			}
+			});
 		panel_4.add(lblNewLabel_8_1);
-		
-		JLabel lblNewLabel_10_4_5 = new JLabel("Agregar participante:");
-		lblNewLabel_10_4_5.setForeground(Color.WHITE);
-		lblNewLabel_10_4_5.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_10_4_5.setBounds(10, 583, 400, 13);
-		panel_4.add(lblNewLabel_10_4_5);
-		
-		textField_8 = new JTextField();
-		textField_8.setColumns(10);
-		textField_8.setBounds(269, 582, 352, 19);
-		panel_4.add(textField_8);
-		
-		JButton btnNewButton_3 = new JButton("Agregar");
-		btnNewButton_3.setBounds(682, 581, 85, 21);
-		panel_4.add(btnNewButton_3);
-		
-		JLabel lblNewLabel_10_4_5_1 = new JLabel("Modificar fecha final (dd/mm/aaaa):");
-		lblNewLabel_10_4_5_1.setForeground(Color.WHITE);
-		lblNewLabel_10_4_5_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_10_4_5_1.setBounds(10, 554, 400, 13);
-		panel_4.add(lblNewLabel_10_4_5_1);
-		
-		textField_9 = new JTextField();
-		textField_9.setColumns(10);
-		textField_9.setBounds(269, 553, 352, 19);
-		panel_4.add(textField_9);
-		
-		JButton btnNewButton_3_1 = new JButton("Agregar");
-		btnNewButton_3_1.setBounds(682, 552, 85, 21);
-		panel_4.add(btnNewButton_3_1);
 		Border borde = BorderFactory.createLineBorder(Color.WHITE, 1);
 		panelCrearProyecto.setVisible(true);
 	}
@@ -1026,5 +1051,13 @@ public class Inicio {
 		DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	    String strDate = date.format(myFormatObj);
 		return strDate;
+	}
+	
+	public static String getCurrentHour() 
+	{
+		LocalTime horaActual = LocalTime.now();
+		DateTimeFormatter horaAct = DateTimeFormatter.ofPattern("HH:mm:ss");
+		String fHour = horaActual.format(horaAct);
+		return fHour;
 	}
 }
