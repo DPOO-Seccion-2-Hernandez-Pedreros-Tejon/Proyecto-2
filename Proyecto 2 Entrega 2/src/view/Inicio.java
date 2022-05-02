@@ -53,9 +53,16 @@ public class Inicio {
 	static Participante usuarioActual;
 	private JFrame frame;
 	private JTextField textField;
+
 	private JTextField txtDdmmyyyy;
+
+
 	private JTextField textField_4;
 	private JTextField textField_5;
+	private JTextField textField_6;
+	private JTextField textField_7;
+	private JTextField textField_8;
+	private JTextField textField_9;
 
 	/**
 	 * Launch the application.
@@ -119,7 +126,11 @@ public class Inicio {
 		panel_2.add(lblNewLabel_5, "cell 3 0");
 		
 		
+
 		crearPanelModificarActividad(principal);
+
+		crearPanelInicioSesion(principal);
+
 		
 		
 			
@@ -352,7 +363,7 @@ public class Inicio {
 		panel.setForeground(new Color(255, 255, 255));
 		panel.setBackground(Color.DARK_GRAY);
 		panelCrearProyecto.add(panel);
-		panel.setLayout(new GridLayout(0, 1, 0, 0));
+		panel.setLayout(new MigLayout("", "[grow,fill]", "[grow,fill][::130,grow]"));
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -375,6 +386,26 @@ public class Inicio {
 			}
 		});
 		scrollPane.setViewportView(list);
+		
+		JPanel panel_3 = new JPanel();
+		panel_3.setBackground(Color.DARK_GRAY);
+		panel.add(panel_3, "cell 0 1,grow");
+		panel_3.setLayout(null);
+		
+		JButton lblNewLabel_8 = new JButton("Cambiar usuario");
+		lblNewLabel_8.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panelCrearProyecto.setVisible(false);
+				principal.remove(panelCrearProyecto);
+				crearPanelInicioSesion(principal);
+			}
+		});
+		lblNewLabel_8.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblNewLabel_8.setOpaque(true);
+		lblNewLabel_8.setBackground(Color.WHITE);
+		lblNewLabel_8.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_8.setBounds(10, 32, 144, 66);
+		panel_3.add(lblNewLabel_8);
 		
 		JPanel panel_4 = new JPanel();
 		panel_4.setBounds(211, 7, 821, 622);
@@ -428,7 +459,7 @@ public class Inicio {
 		lblNewLabel_4_1_1_1_1.setBounds(6, 205, 331, 35);
 		panel_5_1.add(lblNewLabel_4_1_1_1_1);
 		
-		txtDdmmyyyy = new JTextField();
+		JTextField txtDdmmyyyy = new JTextField();
 		txtDdmmyyyy.setText("DD/MM/YYYY");
 		txtDdmmyyyy.setForeground(Color.WHITE);
 		txtDdmmyyyy.setColumns(10);
@@ -460,8 +491,11 @@ public class Inicio {
 						//Auto-generated catch block
 						e1.printStackTrace();
 					}
+
 					
-					// TODO Pantalla de proyecto
+					panelCrearProyecto.setVisible(false);
+					principal.remove(panelCrearProyecto);
+					crearPanelProyecto(principal, manejadorProyectos.proyectoActual);
 					
 				}
 				
@@ -491,13 +525,13 @@ public class Inicio {
 		panel_4.add(panel_8);
 		panel_8.setLayout(null);
 		
-		JLabel lblNewLabel_8 = new JLabel("");
-		lblNewLabel_8.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		JLabel lblNewLabel_81 = new JLabel("");
+		lblNewLabel_81.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		Border borde = BorderFactory.createLineBorder(Color.WHITE, 1);
-		lblNewLabel_8.setBorder(borde);
-		lblNewLabel_8.setForeground(new Color(255, 255, 255));
-		lblNewLabel_8.setBounds(390, 117, 377, 59);
-		panel_8.add(lblNewLabel_8);
+		lblNewLabel_81.setBorder(borde);
+		lblNewLabel_81.setForeground(new Color(255, 255, 255));
+		lblNewLabel_81.setBounds(390, 117, 377, 59);
+		panel_8.add(lblNewLabel_81);
 		
 		JButton btnNewButton_2_1 = new JButton("Listo");
 		btnNewButton_2_1.setBounds(697, 32, 70, 30);
@@ -513,13 +547,13 @@ public class Inicio {
 						if (nombre.equals(o.getNombre()))
 						{
 							aux = true;
-							lblNewLabel_8.setText("<html>El usuario " + o.getNombre() + " ha trabajado un tiempo total de " + o.getTiempoTotal() + "<br>y ha invertido en promedio"
+							lblNewLabel_81.setText("<html>El usuario " + o.getNombre() + " ha trabajado un tiempo total de " + o.getTiempoTotal() + "<br>y ha invertido en promedio"
 									+ " por actividad un tiempo de " + o.getTiempoProm() + "</html>");
 						}
 					}
 					if (!aux)
 					{
-						lblNewLabel_8.setText("No existe un usuario con ese nombre para generar el reporte.");
+						lblNewLabel_81.setText("No existe un usuario con ese nombre para generar el reporte.");
 					}
 					
 					
@@ -738,6 +772,219 @@ public class Inicio {
 		panelCrearProyecto.setVisible(true);
 	}
 
+	public void crearPanelProyecto(JPanel principal, Proyecto proyectoActual)
+	{
+		JPanel panelCrearProyecto = new JPanel();
+		panelCrearProyecto.setForeground(new Color(255, 255, 255));
+		panelCrearProyecto.setBackground(Color.DARK_GRAY);
+		principal.add(panelCrearProyecto, BorderLayout.CENTER);
+		panelCrearProyecto.setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(7, 7, 190, 622);
+		panel.setForeground(new Color(255, 255, 255));
+		panel.setBackground(Color.DARK_GRAY);
+		panelCrearProyecto.add(panel);
+		panel.setLayout(new MigLayout("", "[grow,fill]", "[grow,fill][::130,grow]"));
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		panel.add(scrollPane);
+		
+		JList list = new JList();
+		ArrayList<String> nombres = new ArrayList();
+		for (Proyecto proyecto: manejadorProyectos.proyectosCargados) 
+		{
+			nombres.add(proyecto.getNombre());
+		}
+		list.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		list.setModel(new AbstractListModel() {
+			String[] values = nombres.toArray(new String[nombres.size()]);
+			public int getSize() {
+				return values.length;
+			}
+			public Object getElementAt(int index) {
+				return values[index];
+			}
+		});
+		scrollPane.setViewportView(list);
+		
+		JPanel panel_3 = new JPanel();
+		panel_3.setBackground(Color.DARK_GRAY);
+		panel.add(panel_3, "cell 0 1,grow");
+		panel_3.setLayout(null);
+		
+		JButton lblNewLabel_8 = new JButton("Cambiar usuario");
+		lblNewLabel_8.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panelCrearProyecto.setVisible(false);
+				principal.remove(panelCrearProyecto);
+				crearPanelInicioSesion(principal);
+			}
+		});
+		lblNewLabel_8.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblNewLabel_8.setOpaque(true);
+		lblNewLabel_8.setBackground(Color.WHITE);
+		lblNewLabel_8.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_8.setBounds(10, 32, 144, 66);
+		panel_3.add(lblNewLabel_8);
+		
+		JPanel panel_4 = new JPanel();
+		panel_4.setBounds(218, 7, 821, 622);
+		panel_4.setForeground(new Color(255, 255, 255));
+		panel_4.setBackground(Color.DARK_GRAY);
+		panelCrearProyecto.add(panel_4);
+		panel_4.setLayout(null);
+		
+		JLabel lblNewLabel_9 = new JLabel("Informaci\u00F3n del proyecto");
+		lblNewLabel_9.setBackground(new Color(153, 204, 255));
+		lblNewLabel_9.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblNewLabel_9.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_9.setOpaque(true);
+		lblNewLabel_9.setBounds(0, 0, 821, 23);
+		panel_4.add(lblNewLabel_9);
+		
+		JLabel lblNewLabel_9_1 = new JLabel("Subir actividad");
+		lblNewLabel_9_1.setOpaque(true);
+		lblNewLabel_9_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_9_1.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblNewLabel_9_1.setBackground(new Color(153, 204, 255));
+		lblNewLabel_9_1.setBounds(0, 329, 821, 23);
+		panel_4.add(lblNewLabel_9_1);
+		
+		JLabel lblNewLabel_9_1_1 = new JLabel("Modificar informaci\u00F3n del proyectto");
+		lblNewLabel_9_1_1.setOpaque(true);
+		lblNewLabel_9_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_9_1_1.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblNewLabel_9_1_1.setBackground(new Color(153, 204, 255));
+		lblNewLabel_9_1_1.setBounds(0, 521, 821, 23);
+		panel_4.add(lblNewLabel_9_1_1);
+		
+		JLabel lblNewLabel_10 = new JLabel("Nombre del proyecto: " + manejadorProyectos.proyectoActual.nombre);
+		lblNewLabel_10.setForeground(new Color(255, 255, 255));
+		lblNewLabel_10.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNewLabel_10.setBounds(10, 33, 400, 13);
+		panel_4.add(lblNewLabel_10);
+		
+		JLabel lblNewLabel_10_1 = new JLabel("Fecha de inicio (dd/mm/aaaa): " + manejadorProyectos.proyectoActual.fechaInicio);
+		lblNewLabel_10_1.setForeground(Color.WHITE);
+		lblNewLabel_10_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNewLabel_10_1.setBounds(10, 56, 400, 13);
+		panel_4.add(lblNewLabel_10_1);
+		
+		JLabel lblNewLabel_10_2 = new JLabel("Due\u00F1o del proyecto: " + manejadorProyectos.proyectoActual.duenio.getNombre());
+		lblNewLabel_10_2.setForeground(Color.WHITE);
+		lblNewLabel_10_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNewLabel_10_2.setBounds(411, 35, 400, 13);
+		panel_4.add(lblNewLabel_10_2);
+		
+		JLabel lblNewLabel_10_3 = new JLabel("Fecha estimada  (dd/mm/aaaa): " + manejadorProyectos.proyectoActual.fechaEstimada);
+		lblNewLabel_10_3.setForeground(Color.WHITE);
+		lblNewLabel_10_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNewLabel_10_3.setBounds(411, 58, 400, 13);
+		panel_4.add(lblNewLabel_10_3);
+		
+		JLabel lblNewLabel_11 = new JLabel("Gr\u00E1fica");
+		lblNewLabel_11.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_11.setBounds(10, 81, 801, 212);
+		panel_4.add(lblNewLabel_11);
+		
+		JLabel lblNewLabel_10_4 = new JLabel("Nombre del Participante:");
+		lblNewLabel_10_4.setForeground(Color.WHITE);
+		lblNewLabel_10_4.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNewLabel_10_4.setBounds(10, 362, 400, 13);
+		panel_4.add(lblNewLabel_10_4);
+		
+		textField = new JTextField();
+		textField.setBounds(269, 361, 352, 19);
+		panel_4.add(textField);
+		textField.setColumns(10);
+		
+		JLabel lblNewLabel_10_4_1 = new JLabel("Nombre de la actividad:");
+		lblNewLabel_10_4_1.setForeground(Color.WHITE);
+		lblNewLabel_10_4_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNewLabel_10_4_1.setBounds(10, 386, 400, 13);
+		panel_4.add(lblNewLabel_10_4_1);
+		
+		textField_4 = new JTextField();
+		textField_4.setColumns(10);
+		textField_4.setBounds(269, 385, 352, 19);
+		panel_4.add(textField_4);
+		
+		JLabel lblNewLabel_10_4_2 = new JLabel("Fecha:");
+		lblNewLabel_10_4_2.setForeground(Color.WHITE);
+		lblNewLabel_10_4_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNewLabel_10_4_2.setBounds(10, 410, 400, 13);
+		panel_4.add(lblNewLabel_10_4_2);
+		
+		textField_5 = new JTextField();
+		textField_5.setColumns(10);
+		textField_5.setBounds(269, 409, 352, 19);
+		panel_4.add(textField_5);
+		
+		JLabel lblNewLabel_10_4_3 = new JLabel("Tipo de la actividad:");
+		lblNewLabel_10_4_3.setForeground(Color.WHITE);
+		lblNewLabel_10_4_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNewLabel_10_4_3.setBounds(10, 434, 400, 13);
+		panel_4.add(lblNewLabel_10_4_3);
+		
+		textField_6 = new JTextField();
+		textField_6.setColumns(10);
+		textField_6.setBounds(269, 433, 352, 19);
+		panel_4.add(textField_6);
+		
+		JLabel lblNewLabel_10_4_4 = new JLabel("Descripci\u00F3n: ");
+		lblNewLabel_10_4_4.setForeground(Color.WHITE);
+		lblNewLabel_10_4_4.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNewLabel_10_4_4.setBounds(10, 458, 400, 13);
+		panel_4.add(lblNewLabel_10_4_4);
+		
+		textField_7 = new JTextField();
+		textField_7.setColumns(10);
+		textField_7.setBounds(269, 457, 352, 43);
+		panel_4.add(textField_7);
+		
+		JButton lblNewLabel_8_1 = new JButton("Subir");
+		lblNewLabel_8_1.setOpaque(true);
+		lblNewLabel_8_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_8_1.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblNewLabel_8_1.setBackground(Color.WHITE);
+		lblNewLabel_8_1.setBounds(650, 386, 144, 66);
+		panel_4.add(lblNewLabel_8_1);
+		
+		JLabel lblNewLabel_10_4_5 = new JLabel("Agregar participante:");
+		lblNewLabel_10_4_5.setForeground(Color.WHITE);
+		lblNewLabel_10_4_5.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNewLabel_10_4_5.setBounds(10, 583, 400, 13);
+		panel_4.add(lblNewLabel_10_4_5);
+		
+		textField_8 = new JTextField();
+		textField_8.setColumns(10);
+		textField_8.setBounds(269, 582, 352, 19);
+		panel_4.add(textField_8);
+		
+		JButton btnNewButton_3 = new JButton("Agregar");
+		btnNewButton_3.setBounds(682, 581, 85, 21);
+		panel_4.add(btnNewButton_3);
+		
+		JLabel lblNewLabel_10_4_5_1 = new JLabel("Modificar fecha final (dd/mm/aaaa):");
+		lblNewLabel_10_4_5_1.setForeground(Color.WHITE);
+		lblNewLabel_10_4_5_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNewLabel_10_4_5_1.setBounds(10, 554, 400, 13);
+		panel_4.add(lblNewLabel_10_4_5_1);
+		
+		textField_9 = new JTextField();
+		textField_9.setColumns(10);
+		textField_9.setBounds(269, 553, 352, 19);
+		panel_4.add(textField_9);
+		
+		JButton btnNewButton_3_1 = new JButton("Agregar");
+		btnNewButton_3_1.setBounds(682, 552, 85, 21);
+		panel_4.add(btnNewButton_3_1);
+		Border borde = BorderFactory.createLineBorder(Color.WHITE, 1);
+		panelCrearProyecto.setVisible(true);
+	}
+	
 	public static String darFechaddMM() {
 		LocalDateTime date = LocalDateTime.now();
 		DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd/MM/yyyy");
