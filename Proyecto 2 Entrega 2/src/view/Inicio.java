@@ -743,11 +743,11 @@ public class Inicio {
 					
 					String fechaInicio = darFechaddMM();
 
-					Proyecto proyectoActual = new Proyecto(nombre, descripcion, fechaInicio, fechaEstimada, usuarioActual);
+					//Proyecto proyectoActual = new Proyecto(nombre, descripcion, fechaInicio, fechaEstimada, usuarioActual);
 				
-					manejadorProyectos.proyectosCargados.add(proyectoActual);
+					//manejadorProyectos.proyectosCargados.add(proyectoActual);
 				
-					manejadorProyectos.proyectoActual = proyectoActual;
+					//manejadorProyectos.proyectoActual = proyectoActual;
 					
 					try {
 						manejadorProyectos.salvarDatos();
