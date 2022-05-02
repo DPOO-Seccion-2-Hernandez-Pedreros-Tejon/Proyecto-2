@@ -130,18 +130,9 @@ public class Inicio {
 		JLabel lblNewLabel_5 = new JLabel(darFechaddMM());
 		panel_2.add(lblNewLabel_5, "cell 3 0");
 		
-		
-<<<<<<< HEAD
-		//crearPanelInicioSesion(principal);
-		crearPanelNuevoProyecto(principal);
-=======
+		crearPanelInicioSesion(principal);
+		//crearPanelNuevoProyecto(principal);
 
-		crearPanelModificarActividad(principal);
-
-		
-
-		
->>>>>>> refs/remotes/origin/main
 		
 			
 	}
@@ -848,7 +839,7 @@ public class Inicio {
 		        }
 		        panelCrearProyecto.setVisible(false);
 				principal.remove(panelCrearProyecto);
-		        crearModificarActividad(principal);
+		        crearPanelModificarActividad(principal);
 		    }
 		};
 		list.addMouseListener(mouseListener);
@@ -897,7 +888,7 @@ public class Inicio {
 		lblNewLabel_9_1.setBounds(0, 329, 821, 23);
 		panel_4.add(lblNewLabel_9_1);
 		
-		JLabel lblNewLabel_9_1_1 = new JLabel("Modificar informaci\u00F3n del proyectto");
+		JLabel lblNewLabel_9_1_1 = new JLabel("Modificar informaci\u00F3n del proyecto");
 		lblNewLabel_9_1_1.setOpaque(true);
 		lblNewLabel_9_1_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_9_1_1.setFont(new Font("Tahoma", Font.BOLD, 15));

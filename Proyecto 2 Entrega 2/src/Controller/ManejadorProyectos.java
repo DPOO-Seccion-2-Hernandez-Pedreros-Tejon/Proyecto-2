@@ -173,4 +173,9 @@ public class ManejadorProyectos implements Serializable{
             e.printStackTrace( );
         }
     }
+
+	public void setActividadActual(Actividad actividad) 
+	{
+		actividadActual = actividad;	
+	}
 }
